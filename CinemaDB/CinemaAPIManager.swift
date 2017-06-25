@@ -27,7 +27,6 @@ enum Error: String {
 class CinemaApiManager {
     class func makeAPICall<T: BaseMappable>(endPoint: HTTPEndPoint, errorStatus: @escaping ErrorStatus = {_ in }, completionHandler: @escaping (T) -> ()) {
         UIApplication.shared.isNetworkActivityIndicatorVisible = true
-        NVActivityIndicatorPresenter.sharedInstance.stopAnimating()
         guard let url = URL(string: BASE_URL + "\(endPoint.resource)") else {
             errorStatus(.WrongURL)
             return
@@ -37,6 +36,7 @@ class CinemaApiManager {
         
         request(url, method: endPoint.method, parameters: endPoint.params, encoding: endPoint.encoding, headers: nil).responseObject { (dataResponse :DataResponse<T>) in
             UIApplication.shared.isNetworkActivityIndicatorVisible = false
+            NVActivityIndicatorPresenter.sharedInstance.stopAnimating()
             if let httpResponse = dataResponse.response, httpResponse.statusCode == 200 {
                 //Success
                 switch dataResponse.result {
