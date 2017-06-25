@@ -20,7 +20,8 @@ class MovieListViewController: UIViewController {
     }
     
     var movieList: [Movie] = []
-    var apiPageNumber = 1
+    
+    fileprivate var apiPageNumber = 1
     
     private lazy var refreshControl: UIRefreshControl = {
         let refControl = UIRefreshControl()
@@ -64,11 +65,9 @@ class MovieListViewController: UIViewController {
     func fetchTheMovieList() {
         let movieListRequest = MovieRequest.List(Date.today(), "release_date.desc", self.apiPageNumber).apiEndPoint()
         CinemaApiManager.makeAPICall(endPoint: movieListRequest, errorStatus: { error in
-            self.stopAnimating()
             self.refreshControl.endRefreshing()
-            print(error)
+            print(error!.rawValue)
         }) { (response: MovieList) in
-            self.stopAnimating()
             self.refreshControl.endRefreshing()
             self.movieList += response.movies
             self.tableView.reloadData()

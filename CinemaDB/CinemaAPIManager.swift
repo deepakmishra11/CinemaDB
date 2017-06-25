@@ -10,11 +10,12 @@ import UIKit
 import Alamofire
 import AlamofireObjectMapper
 import ObjectMapper
+import NVActivityIndicatorView
 
 let IMAGE_URL = "https://image.tmdb.org/t/p/w500"
 private let BASE_URL = "http://api.themoviedb.org/3/"
 
-typealias ErrorStatus = (Error) -> ()
+typealias ErrorStatus = (Error?) -> ()
 typealias CompletionHandler = (NSDictionary) -> ()
 
 enum Error: String {
@@ -24,8 +25,9 @@ enum Error: String {
 }
 
 class CinemaApiManager {
-    class func makeAPICall<T: BaseMappable>(endPoint: HTTPEndPoint, errorStatus: @escaping ErrorStatus, completionHandler: @escaping (T) -> ()) {
+    class func makeAPICall<T: BaseMappable>(endPoint: HTTPEndPoint, errorStatus: @escaping ErrorStatus = {_ in }, completionHandler: @escaping (T) -> ()) {
         UIApplication.shared.isNetworkActivityIndicatorVisible = true
+        NVActivityIndicatorPresenter.sharedInstance.stopAnimating()
         guard let url = URL(string: BASE_URL + "\(endPoint.resource)") else {
             errorStatus(.WrongURL)
             return

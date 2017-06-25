@@ -43,23 +43,16 @@ class MovieDetailViewController: UIViewController {
     func fetchMovieDetails(forMovie movieId: Int) {
         let movieDetailRequest = MovieRequest.Detail("\(movieId)").apiEndPoint()
         CinemaApiManager.makeAPICall(endPoint: movieDetailRequest, errorStatus: { error in
-            self.stopAnimating()
-            print(error)
+            print(error!.rawValue)
         }) { (response: MovieDetail) in
-            self.stopAnimating()
             self.movieDetail = response
-            self.showMovieDetails()
+            self.setMovieDetails()
         }
     }
     
-    func showMovieDetails() {
+    func setMovieDetails() {
         self.movieImageView.imageFromServerURL(urlString: self.movieDetail!.moviePosterPath)
-        UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.5, initialSpringVelocity: 0.5, options: .curveLinear, animations: {
-            self.backdropView.isHidden = false
-            self.backdropView.showMovieDetail(movieDetail: self.movieDetail!)
-            let initialFrame = self.backdropView.frame
-            self.backdropView.frame = CGRect(x: initialFrame.origin.x, y: initialFrame.origin.y - initialFrame.size.height, width: initialFrame.size.width, height: initialFrame.size.height)
-        }) { isCompleted in  }
+        self.backdropView.showMovieDetail(movieDetail: self.movieDetail!)
     }
     
     func bookTheMovie() {

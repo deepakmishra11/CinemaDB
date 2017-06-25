@@ -12,7 +12,7 @@ import ObjectMapper
 struct MovieDetail: Mappable {
     var movieId: Int = 0
     var movieTitle = ""
-    var moviePopularity: Double = 0
+    var moviePopularity = ""
     var moviePosterPath = ""
     var synopsis = ""
     var genres: [Genre] = []
@@ -27,7 +27,7 @@ struct MovieDetail: Mappable {
             self.movieTitle = movieTitle
         }
         if let moviePopularity = map.JSON["popularity"] as? Double {
-            self.moviePopularity = moviePopularity
+            self.moviePopularity = "Popularity: \(moviePopularity)"
         }
         if let moviePosterPath = map.JSON["poster_path"] as? String {
             self.moviePosterPath = moviePosterPath
@@ -41,8 +41,8 @@ struct MovieDetail: Mappable {
         if let languages = map.JSON["spoken_languages"] as? [Language] {
             self.languages = languages
         }
-        if let duration = map.JSON["runtime"] as? String {
-            self.duration = duration
+        if let duration = map.JSON["runtime"] as? Int {
+            self.duration = "Duration: \(duration) mins"
         }
     }
     
@@ -57,6 +57,31 @@ struct MovieDetail: Mappable {
         duration <- map["runtime"]
     }
 }
+
+extension MovieDetail {
+    func languagesString() -> String {
+        var text = "Languages: "
+        let languages = self.languages.map({ $0.name })
+        for name in languages {
+            text.append(name)
+            text.append(",")
+        }
+        text = String(text.characters.dropLast())
+        return text
+    }
+    
+    func genresString() -> String {
+        var text = "Genres: "
+        let genres = self.genres.map({ $0.name })
+        for name in genres {
+            text.append(name)
+            text.append(",")
+        }
+        text = String(text.characters.dropLast())
+        return text
+    }
+}
+
 
 struct Genre: Mappable {
     var id: Int = 0
