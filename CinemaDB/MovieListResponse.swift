@@ -19,6 +19,7 @@ struct MovieList: Mappable {
         movies <- map["results"]
     }
 }
+
 struct Movie: Mappable {
     var movieId: Int = 0
     var movieTitle = ""
@@ -47,20 +48,3 @@ struct Movie: Mappable {
         moviePosterPath <- map["poster_path"]
     }
 }
-
-/*
-extension MovieList {
-    init(jsonDictionary: NSDictionary) {
-        if let movieList = jsonDictionary["results"] as? [NSDictionary]{
-            for movies in movieList {
-                var movie = Movie()
-                movie.movieId = movies["id"] as! Int
-                movie.movieTitle = movies["title"] as! String
-                movie.moviePopularity = movies["popularity"] as! Double
-                movie.moviePosterPath = movies["poster_path"] as! String
-                self.movies.append(movie)
-            }
-        }
-    }
-}
- */

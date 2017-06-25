@@ -11,6 +11,7 @@ import Alamofire
 import AlamofireObjectMapper
 import ObjectMapper
 
+let IMAGE_URL = "https://image.tmdb.org/t/p/w500"
 private let BASE_URL = "http://api.themoviedb.org/3/"
 
 typealias ErrorStatus = (Error) -> ()
@@ -29,15 +30,19 @@ class CinemaApiManager {
             errorStatus(.WrongURL)
             return
         }
+        
         print(url.absoluteString)
+        
         request(url, method: endPoint.method, parameters: endPoint.params, encoding: endPoint.encoding, headers: nil).responseObject { (dataResponse :DataResponse<T>) in
             UIApplication.shared.isNetworkActivityIndicatorVisible = false
             if let httpResponse = dataResponse.response, httpResponse.statusCode == 200 {
                 //Success
                 switch dataResponse.result {
                 case .success(let value):
+                    print(value.toJSONString()!)
                     completionHandler(value)
-                case .failure( _):
+                case .failure(let error):
+                    print(error.localizedDescription)
                     errorStatus(.APIFailure)
                 }
             }

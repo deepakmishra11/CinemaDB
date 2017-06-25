@@ -11,6 +11,7 @@ import Alamofire
 
 typealias JSONType = [String: Any]
 private let API_KEY = "f153b444999b0a80e0fd4c1b20cef93a"
+
 /**
  Follow this protocol to design your network API end point
  */
@@ -52,7 +53,7 @@ extension HTTPEndPointDSL {
         initializer(endPointInitializer)
         return HTTPEndPointAbstract(resource: resource,
                                     method: .get,
-                                    encoding: .queryString,
+                                    encoding: endPointInitializer.encoding,
                                     params: endPointInitializer.params)
     }
     

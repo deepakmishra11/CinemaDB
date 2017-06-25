@@ -3,20 +3,23 @@ PODS:
   - AlamofireObjectMapper (4.0.0):
     - Alamofire (~> 4.0)
     - ObjectMapper (~> 2.0)
+  - NVActivityIndicatorView (3.0)
   - ObjectMapper (2.2.0)
   - Shimmer (1.0.2)
 
 DEPENDENCIES:
   - Alamofire (~> 4.0)
   - AlamofireObjectMapper (~> 4.0)
+  - NVActivityIndicatorView
   - Shimmer (~> 1.0.2)
 
 SPEC CHECKSUMS:
   Alamofire: 7682d43245de14874acd142ec137b144aa1dd335
   AlamofireObjectMapper: 9faa3ce5a240efda1b209009a2d6e1e949227abc
+  NVActivityIndicatorView: 81953b5e65093ba79edf4fe7268e002039ca5268
   ObjectMapper: 4060d739febae11ab0c6af8d786f98667c82e1bd
   Shimmer: c5374be1c2b0c9e292fb05b339a513cf291cac86
 
-PODFILE CHECKSUM: c450099e353147170fb1fb551ad2056eaff69b98
+PODFILE CHECKSUM: 2fd444a5d5f84fba50bf9ce50b3609f68554bfe0
 
 COCOAPODS: 1.1.1

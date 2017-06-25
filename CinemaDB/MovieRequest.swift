@@ -21,9 +21,13 @@ extension MovieRequest: HTTPEndPointDSL {
                 $0.params["primary_release_date.lte"] = releaseDate
                 $0.params["sort_by"] = sortBy
                 $0.params["page"] = page
+                
+                $0.encoding = .queryString
             })
         case .Detail(let movieId):
-            return GET(resource: "movie/\(movieId)")
+            return GET(resource: "movie/\(movieId)", initializer: {
+            $0.encoding = .queryString
+            })
         }
     }
 }
