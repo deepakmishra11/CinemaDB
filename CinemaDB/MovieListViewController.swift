@@ -76,8 +76,6 @@ class MovieListViewController: UIViewController {
 }
 
 
-
-
 extension MovieListViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         if let cell = cell as? LoadingTableViewCell {
